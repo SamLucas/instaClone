@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FlatList } from 'react-native';
-import {
-  Avatar,
-  Header,
-  PostImage,
-  Name,
-  Description,
-  Post,
-  Loading,
-} from './styles';
+import { Avatar, Header, Name, Description, Post, Loading } from './styles';
+
+import LazyImage from './components/lazyImage';
 
 const Feed = () => {
   const [feed, setFeed] = useState([]);
@@ -59,7 +53,7 @@ const Feed = () => {
       onEndReached={() => loadFeed()}
       ListFooterComponentStyle={loading && <Loading />}
       renderItem={({ item }) => {
-        const { author, image, description, aspectRatio } = item;
+        const { author, image, small, description, aspectRatio } = item;
         const { avatar, name } = author;
 
         return (
@@ -69,7 +63,11 @@ const Feed = () => {
               <Name>{name}</Name>
             </Header>
 
-            <PostImage ration={aspectRatio} source={{ uri: image }} />
+            <LazyImage
+              aspectRatio={aspectRatio}
+              smallSource={{ uri: small }}
+              source={{ uri: image }}
+            />
 
             <Description>
               <Name>{name}</Name> {description}
