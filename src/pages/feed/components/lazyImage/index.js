@@ -15,12 +15,12 @@ export default function LazyImage({
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    // if (shouldLoad) {
-    setTimeout(() => {
+    if (shouldLoad) {
+      // setTimeout(() => {
       setLoaded(true);
-    }, 1000);
-    // }
-  }, []);
+      // }, 1000);
+    }
+  }, [shouldLoad]);
 
   function handleAnimate() {
     Animated.timing(opacity, {
